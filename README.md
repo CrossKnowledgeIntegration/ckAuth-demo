@@ -6,7 +6,7 @@ This is a 3 steps process:
 
 1. Get a token from your instance's profile page. This token is a "key" (ex. AFGREUS), that encapsulates your user login and instance URL you are attached to.
 
-2. Use this token to validate it (prupose of this sample project)
+2. Use this token to validate it (purpose of this sample project)
 
 3. Once validated, you get back from the service
     * The learner's login
