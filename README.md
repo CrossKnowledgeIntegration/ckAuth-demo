@@ -17,7 +17,7 @@ This is a 3 steps process:
 
 ## Rules
 
-You have to store on your application the login (local storage for instance), url and passkey - and reuse it each time your learner wants to access the API.
+You have to store in your application the login (local storage for instance), url and passkey - and reuse it each time your learner wants to access the API.
 
 If you do not so, then, each time the learner will have to get a token from his profile page.
 
