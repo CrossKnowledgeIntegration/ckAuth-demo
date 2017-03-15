@@ -1,0 +1,87 @@
+<!--
+	Main page
+	Author: Julien Chomarat @ Crossknowledge
+	Project: https://github.com/CrossKnowledgeIntegration/ckAuth-demo
+
+	This software is provided "AS IS" - Licence MIT (https://opensource.org/licenses/MIT)
+-->
+<html>
+    <head>
+        <title>ckAuth demo</title>
+        <link href='css/style.css' rel='stylesheet'>
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+        
+        <script type="text/javascript">
+            (function () {
+                "use strict";
+
+                $(document).ready(function() {
+                    $("#butLogin").click(function(){
+                        var token = $("#token").val();
+
+                        // Initiate the auth process
+                        $.blockUI({ 
+                            css: { 
+                                border: 'none', 
+                                padding: '15px', 
+                                backgroundColor: '#000', 
+                                '-webkit-border-radius': '10px', 
+                                '-moz-border-radius': '10px', 
+                                opacity: .5, 
+                                color: '#fff' 
+                            }
+                        });
+
+                        var url = location.href + "/validate/";
+
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: JSON.stringify({token: token}),
+                            dataType: "text",
+                            success: function (d) {
+                                var data = JSON.parse(d);
+                                if (data.success) {
+                                    $("#login").html(data.value.learnerLogin);
+                                    $("#instance").html(data.value.instanceUrl);
+                                    $.unblockUI();
+                                }
+                                else {
+                                  $("#message").html("An error occured");
+                                  $.unblockUI(); 
+                                }
+                            },
+                            error: function (data) {
+                                $("#message").html("An error occured");
+                                $.unblockUI();
+                            }
+                        });
+                    });
+                });
+            })();
+        </script>
+    </head>
+    <body>
+        <div id="body">
+            <div id="header">
+                <h1>
+                   CKAUTH DEMO
+                </h1>
+            </div>
+            <br />
+            <div>
+                <label class="label" for="token">Code:</label>      
+                <input type="test" class="input" id="token" value="" style="width: 200px;" />
+
+                <input type="button" class="input" value="Login!" id="butLogin" style="width: 100px; display: inline;" />
+            </div>
+            <div>
+                <span id="message"></span>
+                <b>Your login: </b><span id="login"></span>
+                <br />
+                <b>Your CKLS' instance URL: </b><span id="instance"></span>
+            </div>
+        </div>
+    </body>
+</html>
